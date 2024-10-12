@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Background and Download Image</title>
+</head>
+<body>
+    <h2>Upload Image</h2>
+   <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="image">
+    <button type="submit">Upload Image</button>
+</form>
+
+    {% if processed_image %}
+    <h2>Processed Image Preview</h2>
+    <img src="data:image/png;base64,{{ processed_image }}" alt="Processed Image">
+
+    <form method="post">
+    {% csrf_token %}
+        <input type="hidden" name="download_src" value="{{ processed_image }}">
+    <button type="submit">Download Processed Image</button>
+</form>
+    {% endif %}
+</body>
+</html>

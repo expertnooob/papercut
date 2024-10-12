@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Download YouTube Audio</title>
+</head>
+<body>
+    <h2>Download Audio from YouTube</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.youtube_url }}
+        <button type="submit" name="find">Find</button>
+    </form>
+    {% if title and thumbnail_url %}
+    <h3>Title: {{ title }}</h3>
+    <img src="{{ thumbnail_url }}" alt="Thumbnail">
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="youtube_url" value="{{ form.youtube_url.value }}">
+        <button type="submit" name="download">Download MP3</button>
+    </form>
+    {% endif %}
+    {% if error_message %}
+    <p>{{ error_message }}</p>
+    {% endif %}
+
+    <h2>Upload Image</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ image_form.image }}
+        <button type="submit">Remove Background and Download</button>
+    </form>
+</body>
+</html>
